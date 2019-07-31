@@ -1,0 +1,47 @@
+<%- include('../partials/header',{title: "List All Voucher"}) %>
+
+<body>
+    <div class="dashboard-main-wrapper">
+        <%- include('../partials/navbar_bs') %>
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+            <!-- ============================================================== -->
+            <!-- table  -->
+            <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h3 class="card-header bg-primary">List of All Coffee Shop</h3>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Discount (%)</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i = 1 %>
+                                        <% vouchers.forEach( voucher => { %>
+                                            <tr>
+                                                <td><%= i %></td>
+                                                <td><%= voucher.name %></td>
+                                                <td><%= voucher.discount %></td>
+                                                <td><a href="/admin/voucher/delete/<%= voucher.id %>" onclick="return confirm('delete this voucher?') ">delete</a></td>
+                                            </tr>
+                                        <% i++ %>    
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <%- include('../partials/footer_bs') %>
+    </div>
+</body>
