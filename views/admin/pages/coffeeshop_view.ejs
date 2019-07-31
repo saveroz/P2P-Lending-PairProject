@@ -1,0 +1,55 @@
+<%- include('../partials/header',{title: "List All Coffee Shop"}) %>
+
+<body>
+    <div class="dashboard-main-wrapper">
+        <%- include('../partials/navbar_bs') %>
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h3 class="card-header bg-primary">Fearless Coffee <%= coffeeShop.address%></h3>
+                            <div class="card-body">
+                                <form action="/admin/coffeeshop/<%= coffeeShop.id %>/" method="POST">
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                            <select class="form-control text-secondary" name="coffeeId" required oninvalid="setCustomValidity('There\'s no coffee')">
+                                                <% allCoffee.forEach((coffee) => { %>
+                                                    <% if(!frontHelper.is_object_exist_in_array(coffeeShop.Coffees, coffee)){ %>
+                                                        <option value="<%= coffee.id %>"><%= coffee.name %> : <%= coffee.price %></option>
+                                                    <%} %>
+                                                <% }); %>
+                                            </select>
+                                    </div>
+                                    <div class="col-xl-3">
+                                            <input class="form-control btn btn-secondary" type="submit" value="Add Coffee">
+                                    </div>
+                                </div>
+                                </form>
+                                <br>
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    <% coffeeShop.Coffees.forEach((coffee) => { %>
+                                        <tr>
+                                            <td><%= coffee.name %></td>
+                                            <td><%= coffee.price %></td>
+                                            <td>Remove <a href=""></a></td>
+                                        </tr>
+                                    <% }); %>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <%- include('../partials/footer_bs') %>
+        </div>
+        
+    </div>
+        <%- include('../partials/optional') %>
+</body>

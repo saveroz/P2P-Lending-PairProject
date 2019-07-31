@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Edit Teacher</h1>
+    <div>
+        <form action="/teacher/edit/<%= teacher.id%>" method="POST">
+            <p>
+                <label>first_name:</label>
+                <input type="text" name="first_name" value=<%= teacher.first_name %> />
+            </p>
+            <p>
+                <label>last_name:</label>
+                <input type="text" name="last_name" value=<%= teacher.last_name %> />
+            </p>
+            <p>
+                <label>email</label>
+                <input type="text" name="email" value=<%= teacher.email %> />
+            </p>
+            <p>
+                <label>Subject</label>
+                <select name="SubjectId">
+                    <% subjects.forEach( (el) =>{ %>
+                    <option value= <%=el.id %>> <%= el.subject_name %> </option>
+                    <% }) %>
+                </select>
+                
+                <!-- <input type="text" name="SubjectId" placeholder=<%= teacher.SubjectId %> /> -->
+            </p>
+            <p>
+                <input type="submit" name="submit" value="Edit" />
+            </p>
+        </form>
+    </div>
+
+</body>
+
+</html>

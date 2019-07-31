@@ -1,0 +1,46 @@
+<%- include('../partials/header',{title: "List All Coffee Shop"}) %>
+
+<body>
+    <div class="dashboard-main-wrapper">
+        <%- include('../partials/navbar_bs') %>
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h3 class="card-header bg-primary">List of All Coffee Shop</h3>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Action</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let i = 1 %>
+                                        <% coffees.forEach((coffee) => {%>
+                                            <tr>
+                                                <td><%= i %></td>
+                                                <td><%=coffee.name%></td>
+                                                <td><%=coffee.price%></td>
+                                                <td><a href="/admin/coffee/edit/<%=coffee.id%>">Edit</a></td>
+                                            </tr>
+                                        <% i++ %>
+                                        <%}); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <%- include('../partials/footer_bs') %>
+        </div>
+        
+    </div>
+        <%- include('../partials/optional') %>
+</body>

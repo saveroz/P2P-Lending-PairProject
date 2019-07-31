@@ -1,4 +1,7 @@
 'use strict';
+
+const {GenerateSecret, EncryptPass} = require('../helper/encryptpass')
+
 module.exports = (sequelize, DataTypes) => {
 
   const Model = sequelize.Sequelize.Model
@@ -18,10 +21,28 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     MoneyAmount: DataTypes.INTEGER,
     role: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, { sequelize } )
+    email: {
+      type : DataTypes.STRING,
+      validate :{
+        isEmail:{
+          args : true,
+          msg : 'Your email format is wrong please check again'
+        }
 
+      }},
+    password: DataTypes.STRING,
+    secret : DataTypes.STRING
+  },
+   { sequelize } )
+
+  User.addHook('beforeCreate', (user)=>{
+
+    let password = user.password
+    let secret = GenerateSecret()
+    user.password = EncryptPass(password,secret)
+    user.secret = secret
+
+  })
 
   // const User = sequelize.define('User', {
   //   name: DataTypes.STRING,
