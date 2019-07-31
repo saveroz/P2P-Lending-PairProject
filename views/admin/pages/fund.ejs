@@ -33,12 +33,23 @@
             <th scope="col">Nama</th>
             <th scope="col">Progress</th>
             <th scope="col">Sisa Nilai/Hari</th>
+            <th scope="col">Options</th>
           </tr>
         </thead>
         <tbody>
-            <tr class="table-primary">
-                <td></td>
-            </tr>
+            <% borrower.forEach((borrower) => { %>
+              <tr>
+                <td scope="col"><%= borrower.id %></td>
+                <td scope="col"><%= borrower.status%></td>
+                <td scope="col"><%= borrower.bunga %></td>
+                <td scope="col"><%= borrower.deadline %></td>
+                <td scope="col"><%= borrower.BorrowedMoney%></td>
+                <td scope="col"><a href="/admin/listPeminjam/<%= borrower.id%>"><%= borrower.name%></a></td>
+                <td scope="col"></td>
+                <td scope="col"><%= borrower.dataValues.sisahari%> days</td>
+                <td scope="col"><a href="/admin/edit/<%= borrower.id%>" >Edit</a>  <a href="/admin/delete/<%= borrower.id%>" >Delete</a></td>
+              </tr>
+            <% }) %>
         </tbody>
       </table> 
     </div>

@@ -1,5 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
+  const moment = require('moment')
   
   const Model = sequelize.Sequelize.Model
 
@@ -11,6 +12,23 @@ module.exports = (sequelize, DataTypes) => {
 
     }
 
+    sisaHari(){
+      let hasil = ""
+      let deadline = moment(this.batasKumpul);
+      let today = new Date();
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth()).padStart(2, '0');
+      let yyyy = today.getFullYear();
+      let now = moment([yyyy,mm,dd]);
+      let sisa = deadline.diff(now, 'days')
+      if(sisa===null){
+        hasil = "Expired"
+      } else {
+        hasil = sisa
+      }
+      return hasil
+    }
+    
   }
 
   Borrower.init({
@@ -18,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     BorrowedMoney: DataTypes.INTEGER,
     deadline: DataTypes.STRING,
     bunga: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    batasKumpul: DataTypes.DATEONLY
   },{sequelize})
 
   // const Borrower = sequelize.define('Borrower', {

@@ -6,9 +6,10 @@ const admin_controller = require("../controller/admin_controller");
 router.get("/",admin_controller.homepage);
 router.get("/registerCampaign",admin_controller.registerCampaign_get);
 router.post("/registerCampaign",admin_controller.registerCampaign_post);
-// router.get("/login",admin_controller.login_get);
+router.get("/delete/:id",admin_controller.deleteCampaign);
+// router.get("/edit/:id",admin_controller.editCampaign_get);
 // router.get("/fund",admin_controller.fund_get);
-// router.get("/preview",admin_controller.preview_get);
+router.get("/listPeminjam/:id",admin_controller.listPeminjam_get);
 
 
 
