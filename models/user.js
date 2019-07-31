@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         min :{
           args : 1000,
           msg : 'minimal top up 1000' 
+        },
+        max : {
+          args : 100000000,
+          msg : 'maksimal top up adalah 100000000'
         }
       }
     },
@@ -50,8 +54,22 @@ module.exports = (sequelize, DataTypes) => {
         isEmail:{
           args : true,
           msg : 'Your email format is wrong please check again'
-        }
+        },
+        isUnique : function(value){
 
+          User.findOne({
+            where : {email:value} 
+          }).then((data)=>{
+            if (data){
+              throw new Error('Email has been used by another person') }
+            
+              else{
+                next()
+            }
+          }).catch((err)=>{
+            throw err;
+          }) 
+        }
       }},
     password: DataTypes.STRING,
     secret : DataTypes.STRING

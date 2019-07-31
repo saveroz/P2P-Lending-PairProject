@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     ChangeStatus(){
       
       if (this.MoneyReceived >= this.BorrowedMoney){
-        this.status = 'The Program has been successfully funded'
+        this.status = 'Funded'
+        this.save()
       }
     }
 
