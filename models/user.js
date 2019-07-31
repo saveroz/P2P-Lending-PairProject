@@ -14,12 +14,35 @@ module.exports = (sequelize, DataTypes) => {
 
     }
 
+    Sendmoney(money){
+
+      if (this.MoneyAmount-money>=0){
+        this.MoneyAmount -= money
+        this.save()
+      }
+      else{
+        throw new Error("You dont have enough money")
+      }
+
+    }
 
   }
 
   User.init ( {    
     name: DataTypes.STRING,
-    MoneyAmount: DataTypes.INTEGER,
+    MoneyAmount: {
+      type:DataTypes.INTEGER,
+      validate :{
+        isInt : {
+          args : true,
+          msg :'please input number'
+        },
+        min :{
+          args : 1000,
+          msg : 'minimal top up 1000' 
+        }
+      }
+    },
     role: DataTypes.STRING,
     email: {
       type : DataTypes.STRING,

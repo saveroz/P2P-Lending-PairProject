@@ -11,6 +11,22 @@ module.exports = (sequelize, DataTypes) => {
 
     }
 
+    ReceivedMoney(money){
+
+     this.MoneyReceived+=money
+     this.save()
+
+    }
+
+    ChangeStatus(){
+      
+      if (this.MoneyReceived >= this.BorrowedMoney){
+        this.status = 'The Program has been successfully funded'
+      }
+    }
+
+
+
   }
 
   Borrower.init({
@@ -18,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     BorrowedMoney: DataTypes.INTEGER,
     deadline: DataTypes.STRING,
     bunga: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    MoneyReceived : DataTypes.INTEGER
   },{sequelize})
 
   // const Borrower = sequelize.define('Borrower', {

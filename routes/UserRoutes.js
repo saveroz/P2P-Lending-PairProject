@@ -1,9 +1,10 @@
 const express = require('express')
 const Router = express.Router()
-const {User, UserToBorrower, Borrower} = require('../models/index')
+const UserController = require('../controllers/UserController')
+const { User, UserToBorrower, Borrower } = require('../models/index')
 
 
-Router.get('/',function(req,res){
+Router.get('/', function (req, res) {
     res.send('hello world')
 })
 
@@ -11,29 +12,29 @@ Router.get('/register', (req, res) => {
     res.render('./user/pages/register.ejs')
 })
 
-Router.post('/register', function(req,res){
+Router.post('/register', UserController.create)
 
-    let newuser = req.body
-    User.create(newuser).then((success)=>{
-        res.send("success")
-    }).catch(err=>{
-        res.send(err.message)
-    })
+Router.get('/:id/edit', UserController.EditGet)
 
-})
+Router.post('/:id/edit', UserController.EditPost)
 
-Router.get('/edit', function(req,res){
-    res.render('')
+Router.get('/:id/topup', UserController.TopUpGet)
 
+Router.post('/:id/topup', UserController.TopUpPost)
 
-})
+Router.get('/:id/delete', UserController.delete)
 
+Router.get('/:id/givemoney', UserController.GiveMoneyGet)
 
-Router.get ('/login', function(req,res){
+Router.post('/:id/givemoney', UserController.GiveMoneyPost)
+
+Router.get('/:id/listofborrower', UserController.ListofBorrower)
+
+Router.get('/login', function (req, res) {
     res.render('./user/pages/login.ejs')
 })
 
-Router.post ('/login', function(req,ress){
+Router.post('/login', function (req, ress) {
 
     res.redirect('/')
 })
