@@ -1,0 +1,38 @@
+<%- include('../partials/header',{title: "Add Voucher"}) %>
+
+<body>
+    <div class="dashboard-main-wrapper">
+        <%- include('../partials/navbar_bs') %>
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content"><div class="row">
+                <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h3 class="card-header">Add Voucher</h3>
+                        <div class="card-body">
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    <label for="inputText3" class="col-form-label">Voucher Name</label>
+                                    <input id="inputText3" type="text" class="form-control" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputNumber4" class="col-form-label">Discount (%) </label>
+                                    <input id="inputNumber4" type="number" class="form-control" name="discount" min="0" max="100">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input id="submit" type="submit" value="Submit" class="form-control bg-primary">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <%- include('../partials/footer_bs') %>
+        </div>
+    
+    </div>
+    
+    <%- include('../partials/optional') %>
+</body>            

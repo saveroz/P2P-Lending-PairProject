@@ -1,0 +1,26 @@
+{
+  "name": "P2P-Lending-PairProject",
+  "version": "1.0.0",
+  "description": "--- P2P lending Pair Projects ---",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saveroz/P2P-Lending-PairProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saveroz/P2P-Lending-PairProject/issues"
+  },
+  "homepage": "https://github.com/saveroz/P2P-Lending-PairProject#readme",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "pg": "^7.12.0",
+    "sequelize": "^5.12.1"
+  }
+}

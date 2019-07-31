@@ -1,0 +1,59 @@
+<%- include('../partials/header',{title: "List All Coffee Shop"}) %>
+
+<body>
+    <div class="dashboard-main-wrapper">
+        <%- include('../partials/navbar_bs') %>
+            <div class="container-fluid dashboard-content">
+            <!-- ============================================================== -->
+            <!-- table  -->
+            <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-3">
+                        <!-- .card -->
+                        <div class="card card-figure has-hoverable">
+                            <!-- .card-figure -->
+                            <figure class="figure">
+                                <img class="img-fluid" src="../pictures/1_caffe_latte.jpg" alt="Card image cap">
+                                <!-- .figure-caption -->
+                                <figcaption class="figure-caption">
+                                    <h4 class="figure-title"> Hoverable figure </h4>
+                                    <p class="text-muted mb-0"> Give some text description </p>
+                                    <div class="row">
+                                            <div class="col-xl-4">
+        
+                                            </div>
+                                            <div class="col-xl-4">
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <p class="text-secondary text-center">Jumlah</p>
+                                            </div>
+                                        </div>
+                                    <div class="row">
+                                        <div class="col-xl-4">
+
+                                        </div>
+                                        <div class="col-xl-4">
+                                        
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <input type="number" class="form-control" placeholder="0">
+                                        </div>
+                                    </div>
+                                    
+                                </figcaption>
+                                <!-- /.figure-caption -->
+                            </figure>
+                            <!-- /.card-figure -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+
+                    
+                </div>
+                  
+            </div>
+            <%- include('../partials/footer_bs') %>
+        
+    </div>
+    <%- include('../partials/optional') %>
+</body>

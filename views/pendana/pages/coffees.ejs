@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Order Coffee</title>
+</head>
+<body>
+    <h2>Fearless Coffee <%= coffeeShop.address %></h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Amount</th>
+        </tr>
+        <form id="order_form" action="/order/<%= coffeeShop.id %>" method="POST">
+            <% coffeeShop.Coffees.forEach((coffee) => { %>
+                <tr>
+                    <td><%= coffee.name %></td>
+                    <td><%= coffee.price %></td>
+                    <td><input type="number" name="amount[]"></td>
+                    <input type="text" value="<%= coffee.id %>" style="display: none" name="coffeeId[]">
+                </tr>
+            <% }) %>
+        </form>
+    </table>
+
+    <input type="submit" value="Buy" form="order_form">  <!-- BIAR SUBMIT NYA BISA DILUAR FORM PAKAI NAME DI FORM -->
+</body>
+</html>

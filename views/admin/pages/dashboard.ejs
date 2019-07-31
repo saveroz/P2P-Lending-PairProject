@@ -1,0 +1,44 @@
+<%- include('../partials/header',{title: "List All Coffee Shop"}) %>
+
+<body>
+    <div class="dashboard-main-wrapper">
+        <%- include('../partials/navbar_bs') %>
+        <div class="dashboard-wrapper">
+            <div class="container-fluid dashboard-content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h3 class="card-header bg-primary">List of All Coffee Shop</h3>
+                            <div class="card-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Location</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% let number = 1; %>
+                                        <% coffeeShops.forEach((coffeeShop) => { %>
+                                            <tr>
+                                                <td><%= number %></td>
+                                                <td><%= coffeeShop.address%></td>
+                                                <td><a href="/admin/coffeeshop/<%= coffeeShop.id %>/">View</a></td>
+                                            </tr>
+                                            <%number++;%>
+                                        <%})%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <%- include('../partials/footer_bs') %>
+        </div>
+        
+    </div>
+        <%- include('../partials/optional') %>
+</body>
