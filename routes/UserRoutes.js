@@ -5,10 +5,13 @@ const { User, UserToBorrower, Borrower } = require('../models/index')
 const middleware = require('../helper/middleware')
 
 
-Router.get('/', middleware ,function (req, res) {
-
+Router.get('/', middleware ,function(req,res){
     res.render('./user/pages/user')
-})
+}) 
+// {
+
+    
+// })
 
 Router.get('/edit', middleware,UserController.EditGet)
 

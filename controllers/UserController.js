@@ -1,6 +1,7 @@
 const { User, UserToBorrower, Borrower } = require('../models/index')
 const {generatePass, checkPassword} = require('../helper/encryptpass')
 
+
 class UserController {
 
     static create(req, res) {
@@ -52,6 +53,7 @@ class UserController {
         let money = {
             'MoneyAmount': Number(req.body.MoneyAmount)
         }
+        // minTopUp(money)
 
         User.findByPk(id).
             then((theuser) => {
@@ -94,32 +96,53 @@ class UserController {
             })
     }
 
+    // theuser.Sendmoney(newdata.GivenMoney)
+    // Borrower.findByPk(newdata.BorrowerId)
+    // .then((borrower)=>{
+    //     borrower.ReceivedMoney(newdata.GivenMoney)
+    //     res.send('Transaction success')
+    // }).catch(err=>{
+    //     res.send(err.message)
+    // })
+
+    // User.findByPk(id)
+    // .the
+    // UserToBorrower.create(newdata)
+    // .then(res => {
+    //     obj["data1"] = res
+    //     return User.findByPk(id)
+    // })
+    // .then(ress => {
+
+
+    // })
+    // .catch(err => {
+
+    // })
     static GiveMoneyPost(req, res) {
+     
         let id = req.session.currentUser.id
         let newdata = {
             'UserId': id,
             'BorrowerId': Number(req.body.Borrower),
             'GivenMoney': Number(req.body.MoneyAmount)
         }
-        // res.send(newdata)
-
-
-        UserToBorrower.create(newdata)
-            .then(allborrower => {
-                User.findByPk(id)
-                .then(theuser => {
-                    theuser.Sendmoney(newdata.GivenMoney)
-                    Borrower.findByPk(newdata.BorrowerId)
-                    .then((borrower)=>{
-                        borrower.ReceivedMoney(newdata.GivenMoney)
-                        res.send('Transaction success')
-                    })
-                })
-
-        })
-        .catch(err => {
+        User.findByPk(id)
+        .then(theuser =>{
+            return theuser.Sendmoney(newdata.GivenMoney)
+        }).then(status =>{
+            return Borrower.findByPk(newdata.BorrowerId)
+        }).then(borrower =>{
+            return borrower.ReceivedMoney(newdata.GivenMoney)
+        }).then((status)=>{
+                return UserToBorrower.create(newdata)
+        }).then(success =>{
+            res.send('transaction success')
+        }).catch(err=>{
             res.send(err.message)
         })
+        // res.send(newdata)
+
 
     }
 
@@ -131,6 +154,7 @@ class UserController {
             include : [{model : Borrower}]
         })
         .then((listborrower)=>{
+            // res.render('./user/pages/user',listborrower )
             res.send(listborrower)
         })
         .catch(err =>{

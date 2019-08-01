@@ -37,10 +37,6 @@ module.exports = (sequelize, DataTypes) => {
           args : true,
           msg :'please input number'
         },
-        min :{
-          args : 1000,
-          msg : 'minimal top up 1000' 
-        }
       }
     },
     role: DataTypes.STRING,
@@ -60,9 +56,7 @@ module.exports = (sequelize, DataTypes) => {
   User.addHook('beforeCreate', (user)=>{
 
     let password = user.password
-    // let secret = GenerateSecret()
     user.password = generatePass(password)
-    // user.secret = secret
 
   })
 
