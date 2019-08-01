@@ -6,28 +6,28 @@
             <div class="container-fluid dashboard-content"><div class="row">
                 <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h3 class="card-header">Add Campaign</h3>
+                        <h3 class="card-header">Edit Campaign</h3>
                         <div class="card-body">
                             <form action="" method="POST">
                                 <div class="form-group">
                                     <label class="col-form-label">Nama</label>
-                                    <input id="inputText3" type="text" class="form-control" name="name">
+                                    <input id="inputText3" type="text" class="form-control" name="name" value=<%=borrower.name%>>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputNumber4" class="col-form-label">Jumlah Pinjaman</label>
-                                    <input id="inputNumber4" type="number" class="form-control" name="borrowedMoney">
+                                    <input id="inputNumber4" type="number" class="form-control" name="borrowedMoney" value=<%=borrower.BorrowedMoney%>>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputNumber4" class="col-form-label">Lama Meminjam(dalam bulan)</label>
-                                    <input id="inputNumber4" type="number" class="form-control" name="deadline">
+                                    <input id="inputNumber4" type="number" class="form-control" name="deadline" value=<%=borrower.deadline%>>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputNumber4" class="col-form-label">Bunga</label>
-                                    <input id="inputNumber4" type="number" class="form-control" name="bunga">
+                                    <input id="inputNumber4" type="number" class="form-control" name="bunga" value=<%=borrower.bunga%>>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputNumber4" class="col-form-label">Batas pengumpulan</label>
-                                    <input id="inputNumber4" type="date" class="form-control" name="target">
+                                    <input id="inputNumber4" type="date" class="form-control" name="target" value=<%=borrower.batasKumpul%>>
                                 </div>
                                 <div class="form-group">
                                     <input id="submit" type="submit" value="Submit" class="form-control bg-primary">

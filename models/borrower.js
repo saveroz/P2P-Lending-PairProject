@@ -1,7 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const moment = require('moment')
-  
   const Model = sequelize.Sequelize.Model
 
   class Borrower extends Model{
@@ -28,7 +27,33 @@ module.exports = (sequelize, DataTypes) => {
       }
       return hasil
     }
-    
+
+    progressBar(){
+      return Number((this.MoneyReceived/this.BorrowedMoney*100)).toFixed(2)+"%";
+    }
+
+    sisaNilai(){
+      return Number((this.BorrowedMoney-this.MoneyReceived));
+    }
+
+
+    ReceivedMoney(money){
+     this.MoneyReceived+=money
+     this.save()
+
+    }
+
+    ChangeStatus(){
+      if (this.MoneyReceived >= this.BorrowedMoney){
+        this.status = 'Funded'
+      } else {
+        this.status = 'Progress'
+      }
+      return this.status
+    }
+
+
+
   }
 
   Borrower.init({
@@ -37,7 +62,8 @@ module.exports = (sequelize, DataTypes) => {
     deadline: DataTypes.STRING,
     bunga: DataTypes.INTEGER,
     status: DataTypes.STRING,
-    batasKumpul: DataTypes.DATEONLY
+    batasKumpul: DataTypes.DATEONLY,
+    MoneyReceived : DataTypes.INTEGER
   },{sequelize})
 
   // const Borrower = sequelize.define('Borrower', {
