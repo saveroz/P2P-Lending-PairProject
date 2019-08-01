@@ -2,35 +2,54 @@ const express = require('express')
 const Router = express.Router()
 const UserController = require('../controllers/UserController')
 const { User, UserToBorrower, Borrower } = require('../models/index')
+const middleware = require('../helper/middleware')
 
 
-Router.get('/', function (req, res) {
-    res.send('hello world')
+Router.get('/', middleware ,function (req, res) {
+
+    res.render('./user/pages/user')
 })
 
-Router.get('/:id/edit', UserController.EditGet)
+Router.get('/edit', middleware,UserController.EditGet)
 
-Router.post('/:id/edit', UserController.EditPost)
+Router.post('/edit', middleware,UserController.EditPost)
 
-Router.get('/:id/topup', UserController.TopUpGet)
+Router.get('/topup', middleware,UserController.TopUpGet)
 
-Router.post('/:id/topup', UserController.TopUpPost)
+Router.post('/topup', middleware, UserController.TopUpPost)
 
-Router.get('/:id/delete', UserController.delete)
+Router.get('/delete', middleware,UserController.delete)
 
-Router.get('/:id/givemoney', UserController.GiveMoneyGet)
+Router.get('/givemoney', middleware,UserController.GiveMoneyGet)
 
-Router.post('/:id/givemoney', UserController.GiveMoneyPost)
+Router.post('/givemoney', middleware,UserController.GiveMoneyPost)
 
-Router.get('/:id/listofborrower', UserController.ListofBorrower)
+Router.get('/listofborrower',middleware, UserController.ListofBorrower)
 
-Router.get('/login', function (req, res) {
-    res.render('./user/pages/login.ejs')
+// Router.get('/login', function (req, res) {
+//     res.render('./user/pages/login.ejs')
+// })
+
+
+Router.get('/logout', middleware,function (req, res) {
+    
+    req.session.destroy( err =>{
+        if (err){
+            res.send(err.message)
+        }
+        else{
+            console.log(req.session)
+            res.redirect('/')
+        }
+    })
+    
+    // res.render('./user/pages/login.ejs')
+    
 })
 
-Router.post('/login', function (req, ress) {
+// Router.post('/login', function (req, ress) {
 
-    res.send(req.body)
-})
+//     res.send(req.body)
+// })
 
 module.exports = Router
