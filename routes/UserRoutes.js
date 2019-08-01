@@ -8,12 +8,6 @@ Router.get('/', function (req, res) {
     res.send('hello world')
 })
 
-Router.get('/register', (req, res) => {
-    res.render('./user/pages/register.ejs')
-})
-
-Router.post('/register', UserController.create)
-
 Router.get('/:id/edit', UserController.EditGet)
 
 Router.post('/:id/edit', UserController.EditPost)
@@ -36,7 +30,7 @@ Router.get('/login', function (req, res) {
 
 Router.post('/login', function (req, ress) {
 
-    res.redirect('/')
+    res.send(req.body)
 })
 
 module.exports = Router

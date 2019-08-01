@@ -4,7 +4,6 @@
     "password": "253062",
     "database": "P2PLending",
     "host": "127.0.0.1",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
   }
 }

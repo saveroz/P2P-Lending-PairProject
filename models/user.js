@@ -1,6 +1,6 @@
 'use strict';
 
-const {GenerateSecret, EncryptPass} = require('../helper/encryptpass')
+const {generatePass, checkPassword} = require('../helper/encryptpass')
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -61,9 +61,9 @@ module.exports = (sequelize, DataTypes) => {
   User.addHook('beforeCreate', (user)=>{
 
     let password = user.password
-    let secret = GenerateSecret()
-    user.password = EncryptPass(password,secret)
-    user.secret = secret
+    // let secret = GenerateSecret()
+    user.password = generatePass(password)
+    // user.secret = secret
 
   })
 

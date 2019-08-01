@@ -4,8 +4,11 @@ class UserController {
 
     static create(req, res) {
         let newuser = req.body
+        newuser['role'] = "user"
         User.create(newuser).then((success) => {
-            res.send("success")
+            res.send('You have successfully created account')
+
+            res.redirect('/')
         }).catch(err => {
             res.send(err.message)
         })

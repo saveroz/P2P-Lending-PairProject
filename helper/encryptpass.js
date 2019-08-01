@@ -1,35 +1,19 @@
+const bcrypt = require('bcrypt');
 
-function GenerateSecret() {
+function generatePass(pass){
+    
+    const saltRounds = 10;
 
-    let output = []
-
-    for (let i = 0; i < 6; i++) {
-
-        let number = Math.floor(Math.random() * (122 - 97 + 1)) + 97
-        let char = String.fromCharCode(number)
-
-        if (!output.includes(char)) {
-            output.push(char)
-        }
-        else {
-            i -= 1
-        }
-        // console.log('a')
-    }
-
-    return output.join("")
-
-}
-
-function EncryptPass(pass, secret) {
-
-    const crypto = require('crypto');
-    const hash = crypto.createHmac('sha256', secret)
-        .update(pass)
-        .digest('hex');
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(pass, salt);
 
     return hash
-
+    
 }
 
-module.exports = {GenerateSecret, EncryptPass}
+function checkPassword(pass,hash){
+    return bcrypt.compareSync(pass, hash)
+}
+
+
+module.exports = {generatePass, checkPassword}
