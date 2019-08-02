@@ -29,7 +29,12 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   User.init ( {    
-    name: DataTypes.STRING,
+    name: {
+      type :DataTypes.STRING,
+      validate : {
+        notEmpty: true
+      }
+    },
     MoneyAmount: {
       type:DataTypes.INTEGER,
       validate :{
@@ -49,7 +54,10 @@ module.exports = (sequelize, DataTypes) => {
         }
 
       }},
-    password: DataTypes.STRING
+    password: {
+      type : DataTypes.STRING,
+      notEmpty: true
+    }
   },
    { sequelize } )
 

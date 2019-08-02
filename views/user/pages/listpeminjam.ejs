@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/d00c61de42.js"></script>
+    <!-- <link rel="stylesheet" href="./user.css"> -->
+    <title>User</title>
+</head>
+
+<body>
+    <a href="/login/user/edit">edit</a>
+    <a href="/login/user/topup">topup</a>
+    <a href="/login/user/givemoney">givemoney</a>
+    <a href="/login/user/logout">logout</a>
+   
+
+
+    <div class="jumbotron jumbotron-fluid"
+        style="background-image: url('/header.jpg'); background-size: cover; background-size: 100% 100%">
+        <div class="container">
+            <h1 text-align="center">Danain Aja</h1>
+        </div>
+    </div>
+    <div>
+        <h3>Welcome <%=user.name%></h3>
+        <h4>Your current balance is <%=user.MoneyAmount%></h4>
+
+    </div>
+    <br>
+
+    <section id="history-order">
+        <div class="container">
+            <text>List Peminjam</text>
+            <br><br>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Bunga</th>
+                            <th scope="col">Waktu</th>
+                            <th scope="col">Nilai</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Progress</th>
+                            <th scope="col">Sisa Nilai/Hari</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <% let no=1%>
+                        <% borrowers.forEach((borrower) => { %>
+                          <tr>
+                            <td scope="col"><%= no %></td>
+                            <td scope="col"><%= borrower.status%></td>
+                            <td scope="col"><%= borrower.bunga %></td>
+                            <td scope="col"><%= borrower.deadline %></td>
+                            <td scope="col">Rp. <%= borrower.BorrowedMoney%></td>
+                            <td scope="col"><%= borrower.name%></a></td>
+                            <td scope="col">
+                                <h4><%=borrower.dataValues.progressBar%></h4>
+                            </td>
+                            <td scope="col">Rp. <%= borrower.dataValues.sisaNilai%>/<%= borrower.dataValues.sisahari%> days</td>
+                          </tr>
+                        <% no+=1 }) %>
+                    </tbody>
+            </table>
+        </div>
+    </section>
+        <form action="/login/user/givemoney" method="POST" style="text-align: center">
+            <p>
+                <label>Money</label>
+                <input type="number" min="50000" name="MoneyAmount" placeholder="money" />
+            </p>
+            <p>
+                <label>People who needs</label>
+                <select name="Borrower">
+                    <% borrowers.forEach( (el) => { %>
+
+                    <option value=<%=el.id %>> <%= el.name %> </option>
+
+                    <% } ) %>
+                </select>
+
+
+            </p>
+            <p>
+                <input type="submit" name="give" value="give" />
+            </p>
+        </form>
+</body>
+
+</html>

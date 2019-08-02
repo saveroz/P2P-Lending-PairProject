@@ -1,11 +1,16 @@
 const express = require("express");
 const router = express.Router();
-
+const middleware = require('../helper/middleware')
 const admin_controller = require("../controllers/admin_controller");
 
-router.get("/",admin_controller.homepage);
-router.get("/registerCampaign", admin_controller.registerCampaign_get);
-router.post("/registerCampaign",admin_controller.registerCampaign_post);
+router.get("/",middleware,admin_controller.homepage);
+router.get("/registerCampaign", middleware,admin_controller.registerCampaign_get);
+router.post("/registerCampaign",middleware,admin_controller.registerCampaign_post);
+router.get("/delete/:id",middleware,admin_controller.deleteCampaign);
+router.get("/edit/:id",middleware,admin_controller.editCampaign_get);
+router.post("/edit/:id",middleware,admin_controller.editCampaign_post);
+router.get("/listPeminjam/:id",middleware,admin_controller.listPeminjam_get);
+
 // router.get("/login",admin_controller.login_get);
 // router.get("/fund",admin_controller.fund_get);
 // router.get("/preview",admin_controller.preview_get);

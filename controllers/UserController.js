@@ -1,8 +1,38 @@
 const { User, UserToBorrower, Borrower } = require('../models/index')
-const {generatePass, checkPassword} = require('../helper/encryptpass')
+const { generatePass, checkPassword } = require('../helper/encryptpass')
 
 
 class UserController {
+
+    static Logout(req,res) {
+        req.session.destroy(err => {
+            if (err) {
+                res.send(err.message)
+            }
+            else {
+                console.log(req.session)
+                res.redirect('/')
+            }
+        })
+    }
+    static Homepage(req, res) {
+        let id = req.session.currentUser.id
+
+        UserToBorrower.findAll({
+            where: {
+                'UserId': id
+            },
+            include: [{ model: Borrower }]
+        })
+            .then(users => {
+                res.render('./user/pages/user.ejs', { users })
+
+            }
+            ).catch(err => {
+                res.send(err.message)
+            })
+
+    }
 
     static create(req, res) {
         let newuser = req.body
@@ -13,6 +43,7 @@ class UserController {
             res.redirect('/')
         }).catch(err => {
             res.send(err.message)
+            // alert(err.message)
         })
     }
 
@@ -20,7 +51,7 @@ class UserController {
         // let id = Number(req.params.id)
         // let id = req.currentUser.id
         let id = req.session.currentUser.id
-        res.render('./user/pages/editUser.ejs', {'id':id})
+        res.render('./user/pages/editUser.ejs', { 'id': id })
 
     }
 
@@ -30,7 +61,7 @@ class UserController {
         let newdata = req.body
         newdata['password'] = generatePass(req.body.password)
         // let password = generatePass(newdata.password)
-        
+
         User.findByPk(id)
             .then((theuser) => {
                 theuser.update(newdata)
@@ -57,7 +88,7 @@ class UserController {
 
         User.findByPk(id).
             then((theuser) => {
-                money['MoneyAmount']+=theuser.MoneyAmount
+                money['MoneyAmount'] += theuser.MoneyAmount
                 theuser.update(money)
                     .then((status) => {
                         // res.send(theuser)
@@ -84,43 +115,31 @@ class UserController {
             })
 
     }
-
+    // res.render('./user/pages/listpeminjam.ejs', { 'id': id, borrowers: allborrower })
     static GiveMoneyGet(req, res) {
         let id = req.session.currentUser.id
-
+        let borrowers=[]
         Borrower.findAll()
             .then(allborrower => {
-                res.render('./user/pages/givemoney', { 'id': id, borrower: allborrower })
+                allborrower.forEach((el) => {
+                    el.setDataValue("sisahari", el.sisaHari())
+                    el.setDataValue("progressBar", el.progressBar())
+                    el.setDataValue("sisaNilai", el.sisaNilai())
+                    el.status = el.ChangeStatus()
+                })
+            borrowers = allborrower
+                return User.findByPk(id)
+            }).then (theuser =>{
+                res.render('./user/pages/listpeminjam.ejs', { 'id': id, 'borrowers': borrowers,'user':theuser })
+            
             }).catch(err => {
                 res.send(err.message)
             })
     }
 
-    // theuser.Sendmoney(newdata.GivenMoney)
-    // Borrower.findByPk(newdata.BorrowerId)
-    // .then((borrower)=>{
-    //     borrower.ReceivedMoney(newdata.GivenMoney)
-    //     res.send('Transaction success')
-    // }).catch(err=>{
-    //     res.send(err.message)
-    // })
 
-    // User.findByPk(id)
-    // .the
-    // UserToBorrower.create(newdata)
-    // .then(res => {
-    //     obj["data1"] = res
-    //     return User.findByPk(id)
-    // })
-    // .then(ress => {
-
-
-    // })
-    // .catch(err => {
-
-    // })
     static GiveMoneyPost(req, res) {
-     
+
         let id = req.session.currentUser.id
         let newdata = {
             'UserId': id,
@@ -128,39 +147,40 @@ class UserController {
             'GivenMoney': Number(req.body.MoneyAmount)
         }
         User.findByPk(id)
-        .then(theuser =>{
-            return theuser.Sendmoney(newdata.GivenMoney)
-        }).then(status =>{
-            return Borrower.findByPk(newdata.BorrowerId)
-        }).then(borrower =>{
-            return borrower.ReceivedMoney(newdata.GivenMoney)
-        }).then((status)=>{
+            .then(theuser => {
+                return theuser.Sendmoney(newdata.GivenMoney)
+            }).then(status => {
+                return Borrower.findByPk(newdata.BorrowerId)
+            }).then(borrower => {
+                return borrower.ReceivedMoney(newdata.GivenMoney)
+            }).then((status) => {
                 return UserToBorrower.create(newdata)
-        }).then(success =>{
-            res.send('transaction success')
-        }).catch(err=>{
-            res.send(err.message)
-        })
+            }).then(success => {
+                // res.send('transaction success')
+                res.redirect('/login/user/givemoney')
+            }).catch(err => {
+                res.send(err.message)
+            })
         // res.send(newdata)
 
 
     }
 
-    static ListofBorrower(req,res){
+    static ListofBorrower(req, res) {
         let id = req.session.currentUser.id
-        
+
         UserToBorrower.findAll({
-            where : {'UserId' : id},
-            include : [{model : Borrower}]
+            where: { 'UserId': id },
+            include: [{ model: Borrower }]
         })
-        .then((listborrower)=>{
-            // res.render('./user/pages/user',listborrower )
-            res.send(listborrower)
-        })
-        .catch(err =>{
-            res.send(err.message)
-        })
-        
+            .then((listborrower) => {
+                // res.render('./user/pages/user',listborrower )
+                res.send(listborrower)
+            })
+            .catch(err => {
+                res.send(err.message)
+            })
+
     }
 }
 

@@ -5,5 +5,12 @@
     "database": "P2PLending",
     "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "253062",
+    "database": "P2PLending",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }
