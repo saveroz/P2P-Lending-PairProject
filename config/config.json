@@ -7,10 +7,10 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
-    "password": "253062",
-    "database": "P2PLending",
-    "host": "127.0.0.1",
+    "username": "tapgdpesusdook",
+    "password": "1c274ddc0522c51a1fd1cff7ce16b769c8b6c3552c453c49ca7f7ed20a74b1f8",
+    "database": "d2u3njllqili6v",
+    "host": "ec2-54-221-238-248.compute-1.amazonaws.com",
     "dialect": "postgres"
   }
 }
